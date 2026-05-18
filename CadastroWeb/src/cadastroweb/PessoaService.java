@@ -52,41 +52,6 @@ public class PessoaService {
 
     public static void adicionarPessoa(Pessoa pessoa) {
 
-        /*
-         ============================================================
-         PONTO PRINCIPAL DA ATIVIDADE
-         ============================================================
-
-         Hoje o sistema simplesmente adiciona a pessoa.
-
-         O aluno deverá impedir cadastros duplicados.
-
-         Regra esperada:
-
-         - Não permitir CPF repetido;
-         - Não permitir e-mail repetido;
-         - Mostrar mensagem ao usuário quando houver duplicidade.
-
-         Possíveis soluções:
-
-         1. Percorrer a lista e comparar CPF/e-mail;
-         2. Criar um Set de CPFs;
-         3. Criar um Set de e-mails;
-         4. Criar uma chave única simulada.
-
-         Exemplo conceitual:
-
-         if (cpfJaExiste(pessoa.getCpf())) {
-             não salvar;
-         }
-
-         if (emailJaExiste(pessoa.getEmail())) {
-             não salvar;
-         }
-
-         Esta verificação NÃO está pronta de propósito.
-        */
-
         for (Pessoa cadastrada : pessoas) {
             boolean cpfIgual = cadastrada.getCpf().trim().equals(pessoa.getCpf().trim());
             boolean emailIgual = cadastrada.getEmail().trim().equalsIgnoreCase(pessoa.getEmail().trim());
@@ -138,20 +103,6 @@ public class PessoaService {
         for (int i = 0; i < pessoas.size(); i++) {
 
             if (pessoas.get(i).getId() == pessoaAtualizada.getId()) {
-
-                /*
-                 =====================================================
-                 ATENÇÃO PARA OS ALUNOS
-                 =====================================================
-
-                 Também é necessário validar duplicidade ao EDITAR.
-
-                 Exemplo:
-                 Se uma pessoa alterar o CPF para um CPF já existente,
-                 o sistema não deve permitir.
-
-                 Esta validação também deverá ser criada pelos alunos.
-                */
 
                 for (Pessoa cadastrada : pessoas) {
                     boolean mesmoCadastro = cadastrada.getId() == pessoaAtualizada.getId();
