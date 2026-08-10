@@ -1,10 +1,13 @@
 package cadastroproduto;
 
 public class Produto {
-        int    codProduto;
-	String descProduto;
-	String unidMedida;
-	float  precoProduto;
-	int    qtdeEstoque;
-	
+	private String codProduto;
+	private String descProduto;
+	private double valorCusto;
+
+	public Produto(String descProduto, double valorCusto, String codProduto) {
+		this.descProduto = descProduto;
+		this.valorCusto = valorCusto;
+		this.codProduto = codProduto;
+	}
 }
