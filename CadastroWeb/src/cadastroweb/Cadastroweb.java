@@ -132,37 +132,6 @@ public class Cadastroweb {
 
         Pessoa pessoa = PessoaService.criarPessoaDoFormulario(exchange);
 
-        /*
-         ============================================================
-         PARTE OBRIGATÓRIA PARA OS ALUNOS ALTERAREM
-         ============================================================
-
-         Atualmente o sistema salva qualquer pessoa cadastrada.
-
-         O aluno deverá implementar uma verificação para impedir:
-
-         1. CPF repetido;
-         2. e-mail repetido.
-
-         Estruturas sugeridas:
-         - Set;
-         - HashSet;
-         - busca em lista;
-         - validação antes de salvar.
-
-         Exemplo de regra esperada:
-
-         Se já existir uma pessoa com o mesmo CPF:
-             não salvar;
-             mostrar mensagem de erro.
-
-         Se já existir uma pessoa com o mesmo e-mail:
-             não salvar;
-             mostrar mensagem de erro.
-
-         No estado atual, a duplicidade é proposital.
-        */
-
         boolean cpfDuplicado = false;
         boolean emailDuplicado = false;
 
