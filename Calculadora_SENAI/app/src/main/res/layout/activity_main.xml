@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="12dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="210dp"
+        android:layout_height="77dp"
+        android:src="@drawable/senai"
+        android:layou_marginTop="12dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="Logo Senai"/>
+
+    <!-- Titulo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ORION_CALCULATOR"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="@color/display_text"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Display -->
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="match_parent"
+        android:layout_height="111dp"
+        android:text="0"
+        android:textSize="42dp"
+        android:textStyle="bold"
+        android:gravity="end|center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:padding="16dp"
+        android:background="@drawable/display_background"
+        android:textColor="@color/display_text"/>
+</LinearLayout>
