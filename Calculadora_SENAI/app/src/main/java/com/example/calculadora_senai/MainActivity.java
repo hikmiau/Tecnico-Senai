@@ -1,6 +1,9 @@
 package com.example.calculadora_senai;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +23,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        TextView footerGithubLink = findViewById(R.id.footerGithubLink);
+        footerGithubLink.setText(Html.fromHtml(getString(R.string.footer_github_link), Html.FROM_HTML_MODE_LEGACY));
+        footerGithubLink.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

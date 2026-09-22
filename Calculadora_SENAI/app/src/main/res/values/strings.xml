@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Calculadora SENAI</string>
+    <string name="footer_sesi_senai">SESI SENAI</string>
+    <string name="footer_ricardo">RICARDO MARCEL DE CARVALHO</string>
+    <string name="footer_henrique">Henrique Fagundes</string>
+    <string name="footer_github_link"><![CDATA[<a href="https://github.com/hikmiau">GitHub</a>]]></string>
 </resources>
