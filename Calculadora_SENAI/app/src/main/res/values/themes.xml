@@ -1,0 +1,22 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.AULA_07_UNIDADE_07_CALCULADORA"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Cor principal -->
+        <item name="colorPrimary">@color/orion_blue</item>
+        <item name="colorPrimaryDark">@color/orion_blue</item>
+
+        <!-- Status Bar (barra do topo) -->
+        <item name="android:statusBarColor">@color/orion_blue</item>
+        <item name="android:navigationBarColor">@color/background</item>
+
+        <!-- Ícones da status bar claros (brancos) -->
+        <item name="android:windowLightStatusBar">false</item>
+
+    </style>
+
+    <style name="Theme.AULA_07_UNIDADE_07_CALCULADORA"
+        parent="Base.Theme.AULA_07_UNIDADE_07_CALCULADORA" />
+
+</resources>
