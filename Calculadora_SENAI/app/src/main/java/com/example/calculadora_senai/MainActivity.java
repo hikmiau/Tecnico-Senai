@@ -1,12 +1,11 @@
 package com.example.calculadora_senai;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
+import com.example.orion_calculator_senai_v2.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,26 +24,30 @@ public class MainActivity extends AppCompatActivity {
 
         display = findViewById(R.id.display);
 
+        // ===== BOTÕES NUMÉRICOS =====
         int[] numberButtonIds = {
                 R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4,
                 R.id.btn_5, R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9
         };
-
         for (int id : numberButtonIds) {
             findViewById(id).setOnClickListener(v ->
                     onNumberButtonClick(((Button) v).getText().toString())
             );
         }
 
+        // ===== VÍRGULA =====
         findViewById(R.id.btn_decimal).setOnClickListener(v -> onDecimalButtonClick());
 
+        // ===== OPERADORES =====
         findViewById(R.id.btn_add).setOnClickListener(v -> onOperatorButtonClick("+"));
         findViewById(R.id.btn_subtract).setOnClickListener(v -> onOperatorButtonClick("-"));
         findViewById(R.id.btn_multiply).setOnClickListener(v -> onOperatorButtonClick("x"));
         findViewById(R.id.btn_divide).setOnClickListener(v -> onOperatorButtonClick("÷"));
 
+        // ===== IGUAL =====
         findViewById(R.id.btn_equals).setOnClickListener(v -> onEqualsButtonClick());
 
+        // ===== FUNÇÕES ESPECIAIS =====
         findViewById(R.id.btn_sign).setOnClickListener(v -> onSignButtonClick());
         findViewById(R.id.btn_percent).setOnClickListener(v -> onPercentButtonClick());
         findViewById(R.id.btn_c).setOnClickListener(v -> onClearButtonClick());
@@ -54,265 +57,255 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_square).setOnClickListener(v -> onSquareButtonClick());
         findViewById(R.id.btn_cube_root).setOnClickListener(v -> onCubeRootButtonClick());
 
+        // ===== MEMÓRIA =====
         findViewById(R.id.btn_mc).setOnClickListener(v -> onMemoryClear());
         findViewById(R.id.btn_mr).setOnClickListener(v -> onMemoryRecall());
         findViewById(R.id.btn_m_plus).setOnClickListener(v -> onMemoryAdd());
         findViewById(R.id.btn_m_minus).setOnClickListener(v -> onMemorySubtract());
         findViewById(R.id.btn_ms).setOnClickListener(v -> onMemoryStore());
-        findViewById(R.id.btn_m_v).setOnClickListener(v -> onMemoryView());
+        findViewById(R.id.btn_mv).setOnClickListener(v -> onMemoryView());
     }
 
-    private void onNumberButtonClick(String number) {
+    // ==================== NÚMEROS ====================
+    private void onNumberButtonClick(String digit) {
         if (resetScreen) {
             currentInput = "";
             resetScreen = false;
         }
 
-        if ("0".equals(currentInput)) {
-            currentInput = number;
-        } else {
-            currentInput += number;
-        }
-
-        display.setText(currentInput);
-    }
-
-    private void onDecimalButtonClick() {
-        if (resetScreen) {
-            currentInput = "";
-            resetScreen = false;
-        }
-
-        if (currentInput.isEmpty()) {
-            currentInput = "0,";
-        } else if (!currentInput.contains(",")) {
-            currentInput += ",";
-        }
-
-        display.setText(currentInput);
-    }
-
-    private void onOperatorButtonClick(String operator) {
-        if (currentInput.isEmpty() && !Double.isNaN(operand1)) {
-            currentOperator = operator;
+        if (currentInput.equals("0") && digit.equals("0")) {
             return;
         }
 
-        if (!Double.isNaN(operand1) && !currentOperator.isEmpty() && !currentInput.isEmpty()) {
-            operand2 = parseValue(currentInput);
-            double result = calculate(operand1, operand2, currentOperator);
-            if (Double.isNaN(result) || Double.isInfinite(result)) {
-                showError();
-                return;
-            }
-            operand1 = result;
-            display.setText(formatValue(result));
-        } else if (!currentInput.isEmpty()) {
-            operand1 = parseValue(currentInput);
+        if (currentInput.equals("0") && !digit.equals("0")) {
+            currentInput = digit;
+        } else {
+            currentInput += digit;
+        }
+
+        updateDisplay();
+    }
+
+    // ===== VÍRGULA =====
+    private void onDecimalButtonClick() {
+        if (resetScreen) {
+            currentInput = "0.";
+            resetScreen = false;
+            updateDisplay();
+            return;
+        }
+
+        if (currentInput.contains(".")) {
+            return;
+        }
+
+        if (currentInput.isEmpty()) {
+            currentInput = "0.";
+        } else {
+            currentInput += ".";
+        }
+
+        updateDisplay();
+    }
+
+    // ==================== OPERADORES ====================
+    private void onOperatorButtonClick(String operator) {
+        if (!Double.isNaN(operand1)) {
+            onEqualsButtonClick();
+        }
+
+        try {
+            operand1 = Double.parseDouble(currentInput);
+        } catch (NumberFormatException e) {
+            operand1 = 0.0;
         }
 
         currentOperator = operator;
-        currentInput = "";
-        resetScreen = false;
+        resetScreen = true;
     }
 
     private void onEqualsButtonClick() {
-        if (currentOperator.isEmpty() || currentInput.isEmpty() || Double.isNaN(operand1)) {
+        if (Double.isNaN(operand1) || currentOperator.isEmpty()) {
             return;
         }
 
-        operand2 = parseValue(currentInput);
-        double result = calculate(operand1, operand2, currentOperator);
-        if (Double.isNaN(result) || Double.isInfinite(result)) {
-            showError();
-            return;
+        try {
+            operand2 = Double.parseDouble(currentInput);
+        } catch (NumberFormatException e) {
+            operand2 = 0.0;
         }
 
-        String formatted = formatValue(result);
-        display.setText(formatted);
-        currentInput = formatted;
+        double result = 0.0;
+
+        switch (currentOperator) {
+            case "+":
+                result = operand1 + operand2;
+                break;
+            case "-":
+                result = operand1 - operand2;
+                break;
+            case "x":
+                result = operand1 * operand2;
+                break;
+            case "÷":
+                if (operand2 == 0) {
+                    display.setText("Error");
+                    resetCalculator();
+                    return;
+                }
+                result = operand1 / operand2;
+                break;
+        }
+
+        currentInput = formatResult(result);
         operand1 = result;
-        currentOperator = "";
         resetScreen = true;
+        currentOperator = "";
+        updateDisplay();
     }
 
-    private void onSignButtonClick() {
-        if (currentInput.isEmpty()) {
-            currentInput = display.getText().toString();
-        }
-
-        if ("0".equals(currentInput) || "Erro".equals(currentInput)) {
-            return;
-        }
-
-        if (currentInput.startsWith("-")) {
-            currentInput = currentInput.substring(1);
+    private String formatResult(double result) {
+        if (result == (long) result) {
+            return String.valueOf((long) result);
         } else {
-            currentInput = "-" + currentInput;
+            return String.format("%.10f", result)
+                    .replaceAll("0*$", "")
+                    .replaceAll("\\.$", "");
         }
+    }
 
-        display.setText(currentInput);
+    // ==================== FUNÇÕES ESPECIAIS ====================
+    private void onSignButtonClick() {
+        if (currentInput.isEmpty() || currentInput.equals("0")) return;
+        try {
+            double value = Double.parseDouble(currentInput);
+            value = -value;
+            currentInput = formatResult(value);
+            updateDisplay();
+        } catch (NumberFormatException ignored) {}
     }
 
     private void onPercentButtonClick() {
-        if (currentInput.isEmpty()) {
-            return;
-        }
-
-        double value = parseValue(currentInput);
-
-        if (!Double.isNaN(operand1) && !currentOperator.isEmpty()) {
-            value = operand1 * value / 100.0;
-        } else {
-            value = value / 100.0;
-        }
-
-        currentInput = formatValue(value);
-        display.setText(currentInput);
+        if (currentInput.isEmpty()) return;
+        try {
+            double value = Double.parseDouble(currentInput);
+            value = value / 100;
+            currentInput = formatResult(value);
+            updateDisplay();
+        } catch (NumberFormatException ignored) {}
     }
 
     private void onClearButtonClick() {
-        currentInput = "";
-        currentOperator = "";
-        operand1 = Double.NaN;
-        operand2 = 0.0;
-        resetScreen = false;
-        display.setText("0");
+        resetCalculator();
+        updateDisplay();
     }
 
     private void onClearEntryButtonClick() {
-        currentInput = "";
-        display.setText("0");
+        currentInput = "0";
+        updateDisplay();
     }
 
     private void onBackspaceButtonClick() {
-        if (currentInput.isEmpty()) {
-            return;
+        if (currentInput.length() > 0) {
+            currentInput = currentInput.substring(0, currentInput.length() - 1);
         }
-
-        currentInput = currentInput.substring(0, currentInput.length() - 1);
-        if (currentInput.isEmpty() || "-".equals(currentInput)) {
-            currentInput = "";
-            display.setText("0");
-            return;
+        if (currentInput.isEmpty() || currentInput.equals("-")) {
+            currentInput = "0";
         }
-
-        display.setText(currentInput);
+        updateDisplay();
     }
 
     private void onReciprocalButtonClick() {
-        double value = getActiveValue();
-        if (value == 0.0) {
-            showError();
-            return;
-        }
-
-        double result = 1.0 / value;
-        currentInput = formatValue(result);
-        display.setText(currentInput);
-        resetScreen = true;
+        if (currentInput.isEmpty() || currentInput.equals("0")) return;
+        try {
+            double value = Double.parseDouble(currentInput);
+            if (value != 0) {
+                value = 1 / value;
+                currentInput = formatResult(value);
+                updateDisplay();
+                resetScreen = true;
+            } else {
+                display.setText("ERRO");
+                resetCalculator();
+            }
+        } catch (NumberFormatException ignored) {}
     }
 
     private void onSquareButtonClick() {
-        double value = getActiveValue();
-        double result = value * value;
-
-        currentInput = formatValue(result);
-        display.setText(currentInput);
-        resetScreen = true;
+        if (currentInput.isEmpty()) return;
+        try {
+            double value = Double.parseDouble(currentInput);
+            value = value * value;
+            currentInput = formatResult(value);
+            updateDisplay();
+            resetScreen = true;
+        } catch (NumberFormatException ignored) {}
     }
 
     private void onCubeRootButtonClick() {
-        double value = getActiveValue();
-        double result = Math.cbrt(value);
-
-        currentInput = formatValue(result);
-        display.setText(currentInput);
-        resetScreen = true;
+        if (currentInput.isEmpty()) return;
+        try {
+            double value = Double.parseDouble(currentInput);
+            value = Math.cbrt(value);
+            currentInput = formatResult(value);
+            updateDisplay();
+            resetScreen = true;
+        } catch (NumberFormatException ignored) {}
     }
 
+    // ==================== MEMÓRIA ====================
     private void onMemoryClear() {
         memory = 0.0;
+        display.setText("MC");
     }
 
     private void onMemoryRecall() {
-        currentInput = formatValue(memory);
-        display.setText(currentInput);
+        currentInput = formatResult(memory);
+        updateDisplay();
         resetScreen = true;
     }
 
     private void onMemoryAdd() {
-        memory += getActiveValue();
+        try {
+            double value = Double.parseDouble(currentInput);
+            memory += value;
+            display.setText("M+");
+        } catch (NumberFormatException e) { }
+        resetScreen = true;
     }
 
     private void onMemorySubtract() {
-        memory -= getActiveValue();
+        try {
+            double value = Double.parseDouble(currentInput);
+            memory -= value;
+            display.setText("M-");
+        } catch (NumberFormatException e) { }
+        resetScreen = true;
     }
 
     private void onMemoryStore() {
-        memory = getActiveValue();
+        try {
+            memory = Double.parseDouble(currentInput);
+            display.setText("MS");
+        } catch (NumberFormatException e) {
+            memory = 0.0;
+        }
+        resetScreen = true;
     }
 
     private void onMemoryView() {
-        currentInput = formatValue(memory);
-        display.setText(currentInput);
+        display.setText("M: " + formatResult(memory));
     }
 
-    private double calculate(double first, double second, String operator) {
-        switch (operator) {
-            case "+":
-                return first + second;
-            case "-":
-                return first - second;
-            case "x":
-                return first * second;
-            case "÷":
-                if (second == 0.0) {
-                    return Double.NaN;
-                }
-                return first / second;
-            default:
-                return Double.NaN;
-        }
-    }
-
-    private double parseValue(String value) {
-        try {
-            return Double.parseDouble(value.replace(',', '.'));
-        } catch (NumberFormatException exception) {
-            return 0.0;
-        }
-    }
-
-    private double getActiveValue() {
-        String source = currentInput.isEmpty() ? display.getText().toString() : currentInput;
-        return parseValue(source);
-    }
-
-    private String formatValue(double value) {
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
-            return "Erro";
-        }
-
-        if (Math.abs(value) < 1e-12) {
-            value = 0.0;
-        }
-
-        if (value == Math.rint(value)) {
-            return String.valueOf((long) value);
-        }
-
-        String text = String.format(Locale.US, "%.12f", value);
-        text = text.replaceAll("0+$", "").replaceAll("\\.$", "");
-        return text.replace('.', ',');
-    }
-
-    private void showError() {
-        display.setText("Erro");
-        currentInput = "";
+    // ==================== AUXILIARES ====================
+    private void resetCalculator() {
+        currentInput = "0";
         currentOperator = "";
         operand1 = Double.NaN;
-        operand2 = 0.0;
         resetScreen = true;
+    }
+
+    private void updateDisplay() {
+        display.setText(currentInput.isEmpty() ? "0" : currentInput);
     }
 }
