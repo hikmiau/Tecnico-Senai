@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="210dp"
         android:layout_height="77dp"
-        android:src="@drawable/senai"
+        android:src="@drawable/logo_senai"
         android:layout_marginTop="12dp"
         android:layout_gravity="center"
         android:contentDescription="Logo Orion ITAO" />
