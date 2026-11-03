@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.orion_calculator_senai_v2"
+    namespace = "com.example.calculadora_senai"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.orion_calculator_senai_v2"
+        applicationId = "com.example.calculadora_senai"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

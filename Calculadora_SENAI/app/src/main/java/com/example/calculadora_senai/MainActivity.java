@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.orion_calculator_senai_v2.R;
+import com.example.calculadora_senai.R;
 
 public class MainActivity extends AppCompatActivity {
 
