@@ -1,110 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
-    android:padding="12dp"
+    android:fillViewport="true"
     tools:context="com.example.calculadora_senai.MainActivity">
 
-    <!-- Logo central -->
-    <ImageView
-        android:layout_width="210dp"
-        android:layout_height="77dp"
-        android:src="@drawable/logo_senai"
-        android:layout_marginTop="12dp"
-        android:layout_gravity="center"
-        android:contentDescription="Logo Orion ITAO" />
-
-    <!-- Titulo do App -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ORION CALCULATOR"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:textColor="@color/display_text"
-        android:layout_marginBottom="8dp"/>
-
-    <!-- Display -->
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:layout_marginBottom="16dp"
-        android:text="0"
-        android:textSize="42sp"
-        android:gravity="end|center_vertical"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:padding="16dp"
-        android:background="@drawable/display_background"
-        android:textColor="@color/display_text"/>
-
-    <!-- Linha 1: Memória -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="6">
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_mc"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MC"
-            android:background="@drawable/button_memory"/>
+        <!-- Logo central -->
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="64dp"
+            android:src="@drawable/logo_senai"
+            android:layout_gravity="center"
+            android:contentDescription="Logo SENAI" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_mr"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
+        <!-- Titulo do App -->
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MR"
-            android:background="@drawable/button_memory"/>
+            android:text="ORION CALCULATOR"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/display_text"
+            android:layout_marginBottom="6dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_m_plus"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="M+"
-            android:background="@drawable/button_memory"/>
+        <!-- Display -->
+        <TextView
+            android:id="@+id/display"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginBottom="8dp"
+            android:text="0"
+            android:textSize="34sp"
+            android:gravity="end|center_vertical"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:padding="12dp"
+            android:background="@drawable/display_background"
+            android:textColor="@color/display_text"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_m_minus"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
+        <!-- Linha 1: Memória -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="M-"
-            android:background="@drawable/button_memory"/>
+            android:orientation="horizontal"
+            android:weightSum="6">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_ms"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MS"
-            android:background="@drawable/button_memory"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_mc"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MC"
+                android:background="@drawable/button_memory"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_mv"
-            style="@style/CalcButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MV"
-            android:background="@drawable/button_memory"/>
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_mr"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MR"
+                android:background="@drawable/button_memory"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_m_plus"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M+"
+                android:background="@drawable/button_memory"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_m_minus"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M-"
+                android:background="@drawable/button_memory"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_ms"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MS"
+                android:background="@drawable/button_memory"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_mv"
+                style="@style/CalcButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MV"
+                android:background="@drawable/button_memory"/>
+        </LinearLayout>
 
     <!-- Linha 2: %, CE, C, Backspace -->
     <LinearLayout
@@ -148,7 +152,7 @@
             android:layout_weight="1"
             android:text="⌫"
             android:background="@drawable/button_backspace"/>
-    </LinearLayout>
+        </LinearLayout>
 
     <!-- Linha 3: 1/x, x², ³√x, ÷ -->
     <LinearLayout
@@ -192,7 +196,7 @@
             android:layout_weight="1"
             android:text="÷"
             android:background="@drawable/button_operation"/>
-    </LinearLayout>
+        </LinearLayout>
 
     <!-- Linha 4: 7, 8, 9, x -->
     <LinearLayout
@@ -400,4 +404,5 @@
         android:textSize="18sp"
         android:autoLink="web" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

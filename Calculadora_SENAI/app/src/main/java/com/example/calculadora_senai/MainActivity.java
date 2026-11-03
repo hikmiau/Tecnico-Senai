@@ -10,7 +10,7 @@ import com.example.orion_calculator_senai_v2.R;
 public class MainActivity extends AppCompatActivity {
 
     private TextView display;
-    private String currentInput = "";
+    private String currentInput = "0";
     private String currentOperator = "";
     private double operand1 = Double.NaN;
     private double operand2;
