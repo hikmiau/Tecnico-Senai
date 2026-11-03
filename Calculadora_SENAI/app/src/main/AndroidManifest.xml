@@ -15,7 +15,9 @@
 
         <activity
             android:name="com.example.calculadora_senai.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="unspecified"
+            android:resizeableActivity="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
